@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Trends</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top Trending Topics on X</h1>
+    <button id="runScriptButton">Click here to run the script</button>
+
+    <div id="result" style="display: none;">
+        <h2>These are the most happening topics as on <span id="endTime"></span></h2>
+        <ul id="trendsList"></ul>
+        <p>The IP address used for this query was <span id="ipAddress"></span>.</p>
+        <h3>Here's a JSON extract of this record from MongoDB:</h3>
+        <pre id="jsonExtract"></pre>
+        <button id="runScriptButtonAgain">Click here to run the query again</button>
+    </div>
+    <!-- some js -->
+    <script>
+        document.getElementById("runScriptButton").addEventListener("click", function() {
+            fetch('results.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById("endTime").textContent = data.date_time;
+                        document.getElementById("ipAddress").textContent = data.ip_address;
+
+                        const trendsList = document.getElementById("trendsList");
+                        trendsList.innerHTML = '';
+                        for (let i = 1; i <= 5; i++) {
+                            const trend = data[`trend${i}`];
+                            if (trend) {
+                                const li = document.createElement("li");
+                                li.textContent = trend;
+                                trendsList.appendChild(li);
+                            }
+                        }
+                        document.getElementById("jsonExtract").textContent = JSON.stringify(data, null, 4);
+                        document.getElementById("result").style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    alert("Error reading the result file.");
+                });
+        });
+        document.getElementById("runScriptButtonAgain").addEventListener("click", function() {
+            document.getElementById("result").style.display = "none";
+        });
+    </script>
+</body>
+</html>
