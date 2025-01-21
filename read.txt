@@ -1,0 +1,7 @@
+1. Setup Python Environment: Before running the project, ensure that Python is installed on your system. You will also need a few Python libraries for this project. Use the following steps to set up the environment: 
+Install Python (if not already installed) from python.org. Install the required Python libraries. You can do this by running the following commands in your terminal/command prompt:
+pip install selenium requests webdriver-manager
+2. Install WebDriver: The project uses the Chrome WebDriver to control the browser. The webdriver-manager package automatically installs the correct version of ChromeDriver, so no manual download is required.
+3. Run the python script main.py to start the login page going first( it will input in the username and password from the accocunt i've created) once it reached the what's happening section, You also need to keep your mongodb compass running or in the background.
+4. Open Live Server from the main.html file and click on "Click here to register"
+5. Get the results
